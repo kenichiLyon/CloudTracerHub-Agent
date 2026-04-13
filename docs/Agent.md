@@ -28,13 +28,13 @@
 ```bash
 uv python pin 3.13
 uv sync --extra dev
-uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 ```
 
 也可以直接调用底层模块：
 
 ```bash
-uv run python -m lubster --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run python -m lubster --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 ```
 
 说明：
@@ -78,7 +78,7 @@ uv run python mcp_main.py
 ### 1) 使用 incident 文件
 
 ```bash
-uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json
 ```
 
 ### 2) 直接传 incident JSON
@@ -148,7 +148,7 @@ Claude Desktop 或其他支持 stdio MCP 的客户端可配置为：
 
 ## 示例 incident
 
-`examples/incidents/pod_crashloop.json`
+`examples/incidents/unified_auth_timeout.json`
 
 字段包括：
 

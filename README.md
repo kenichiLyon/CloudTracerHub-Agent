@@ -1,6 +1,6 @@
 # CloudTracerHub-agent
 
-面向 `lubster` 生态的云原生故障诊断演示项目。
+面向 `lubster` 生态的云原生故障诊断演示项目，演示案例以学校与政务场景为主。
 
 其中 `lubster-agent` 是项目中面向 `lubster` 生态的诊断能力名称。
 对外命令入口统一使用 `cloudtracerhub-agent` 与 `cloudtracerhub-agent-mcp`。
@@ -49,13 +49,13 @@ uv run pytest -q
 ### CLI
 
 ```bash
-uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 ```
 
 如果你需要直接调用底层诊断引擎模块，也可以使用：
 
 ```bash
-uv run python -m lubster --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run python -m lubster --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 ```
 
 支持直接传入 incident JSON：
@@ -93,6 +93,8 @@ lubster_diagnose
 - 场景 1：[`examples/video_demo/incidents/01_course_selection_timeout.json`](./examples/video_demo/incidents/01_course_selection_timeout.json)
 - 场景 2：[`examples/video_demo/incidents/02_gov_service_signature_failure.json`](./examples/video_demo/incidents/02_gov_service_signature_failure.json)
 - 场景 3：[`examples/video_demo/incidents/03_grade_query_backlog.json`](./examples/video_demo/incidents/03_grade_query_backlog.json)
+- 场景 4：[`examples/video_demo/incidents/04_unified_auth_timeout.json`](./examples/video_demo/incidents/04_unified_auth_timeout.json)
+- 场景 5：[`examples/video_demo/incidents/05_gov_appointment_submit_failure.json`](./examples/video_demo/incidents/05_gov_appointment_submit_failure.json)
 - 录屏说明：[`examples/video_demo/README.md`](./examples/video_demo/README.md)
 
 推荐最先演示场景 1，它最容易体现五层链路是如何从症状一路定位到依赖与 runbook 建议的。
@@ -153,7 +155,7 @@ uv run cloudtracerhub-agent-mcp
 - MCP 服务实现：[`lubster/mcp_server.py`](./lubster/mcp_server.py)
 - CLI 入口：[`lubster/cli.py`](./lubster/cli.py)
 - 默认配置：[`examples/lubster.config.json`](./examples/lubster.config.json)
-- 默认 incident：[`examples/incidents/pod_crashloop.json`](./examples/incidents/pod_crashloop.json)
+- 默认 incident：[`examples/incidents/unified_auth_timeout.json`](./examples/incidents/unified_auth_timeout.json)
 
 ## 开发说明
 
@@ -166,6 +168,6 @@ uv run cloudtracerhub-agent-mcp
 ```bash
 uv sync --extra dev
 uv run pytest -q
-uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 uv run cloudtracerhub-agent-mcp
 ```

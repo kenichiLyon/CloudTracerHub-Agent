@@ -13,7 +13,7 @@ from lubster.diagnosis import diagnose
 
 def test_lubster_diagnosis_has_five_layers():
     cfg = load_config(str(BASE / "examples" / "lubster.config.json"))
-    inc = load_incident(file_path=str(BASE / "examples" / "incidents" / "pod_crashloop.json"))
+    inc = load_incident(file_path=str(BASE / "examples" / "incidents" / "unified_auth_timeout.json"))
     out = diagnose(inc, cfg)
     assert out["meta"]["engine"] == "lubster"
     assert len(out["layers"]) == 5

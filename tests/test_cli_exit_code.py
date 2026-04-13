@@ -7,7 +7,7 @@ def test_run_returns_zero():
             "--config",
             "examples/lubster.config.json",
             "--incident-file",
-            "examples/incidents/pod_crashloop.json",
+            "examples/incidents/unified_auth_timeout.json",
             "--format",
             "json",
         ]
@@ -21,7 +21,7 @@ def test_build_report_still_returns_report():
             "--config",
             "examples/lubster.config.json",
             "--incident-file",
-            "examples/incidents/pod_crashloop.json",
+            "examples/incidents/unified_auth_timeout.json",
             "--format",
             "json",
         ]
