@@ -1,0 +1,12 @@
+{
+  "title": "支付回调验签失败并持续重试",
+  "namespace": "fin-prod",
+  "service": "payment-gateway",
+  "symptoms": [
+    "callback retry",
+    "signature verify failed",
+    "401"
+  ],
+  "time_window_minutes": 60,
+  "suspect_pod": "payment-gateway-6b4f9dc87b-mx5qr"
+}

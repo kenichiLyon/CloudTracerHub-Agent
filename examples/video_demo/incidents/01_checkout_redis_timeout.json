@@ -1,0 +1,12 @@
+{
+  "title": "大促期间结算接口 502 激增",
+  "namespace": "retail-prod",
+  "service": "checkout-api",
+  "symptoms": [
+    "502",
+    "timeout",
+    "redis timeout"
+  ],
+  "time_window_minutes": 45,
+  "suspect_pod": "checkout-api-7d9b6f6c7f-k82pl"
+}
