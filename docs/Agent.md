@@ -34,14 +34,10 @@
 ```bash
 uv python pin 3.13
 uv sync --extra dev
-uv run cloudtracerhub-agent --config ../examples/lubster.config.json --incident-file ../examples/incidents/unified_auth_timeout.json --format pretty
-```
-
-如果你是在仓库根目录执行命令，请去掉上面的 `../`：
-
-```bash
 uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/unified_auth_timeout.json --format pretty
 ```
+
+上面命令默认在仓库根目录执行。
 
 也可以直接调用底层模块：
 
