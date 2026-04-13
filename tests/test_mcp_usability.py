@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from openclaw.config import load_config
-from openclaw.mcp_server import MCPServer
+from lubster.config import load_config
+from lubster.mcp_server import MCPServer
 
 
 BASE = Path(__file__).resolve().parents[1]
@@ -22,7 +22,7 @@ def test_mcp_call_without_config_path_uses_default_config(monkeypatch, tmp_path)
             "id": 1,
             "method": "tools/call",
             "params": {
-                "name": "openclaw_agent_diagnose",
+                "name": "lubster_agent_diagnose",
                 "arguments": {
                     "incident": {
                         "title": "worker timeout",
@@ -36,9 +36,9 @@ def test_mcp_call_without_config_path_uses_default_config(monkeypatch, tmp_path)
     )
     assert response is not None
     assert response["result"]["isError"] is False
-    assert response["result"]["structuredContent"]["meta"]["engine"] == "openclaw"
-    assert response["result"]["structuredContent"]["meta"]["server"] == "openclaw-agent"
+    assert response["result"]["structuredContent"]["meta"]["engine"] == "lubster"
+    assert response["result"]["structuredContent"]["meta"]["server"] == "lubster-agent"
 
 
 def test_project_example_config_exists():
-    assert (BASE / "examples" / "openclaw.config.json").exists()
+    assert (BASE / "examples" / "lubster.config.json").exists()

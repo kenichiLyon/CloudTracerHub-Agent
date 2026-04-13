@@ -7,8 +7,8 @@ from .diagnosis import diagnose
 
 
 def build_report(argv=None) -> Dict[str, Any]:
-    parser = argparse.ArgumentParser(prog="openclaw")
-    parser.add_argument("--config", type=str, default="", help="OpenClaw 配置文件路径")
+    parser = argparse.ArgumentParser(prog="lubster")
+    parser.add_argument("--config", type=str, default="", help="lubster 配置文件路径")
     parser.add_argument("--incident-file", type=str, default="", help="故障输入 JSON 文件")
     parser.add_argument("--incident-json", type=str, default="", help="故障输入 JSON 文本")
     parser.add_argument("--format", type=str, default="pretty", choices=["pretty", "json"], help="输出格式")

@@ -1,4 +1,4 @@
-from openclaw.cli import run
+from lubster.cli import run
 
 
 if __name__ == "__main__":

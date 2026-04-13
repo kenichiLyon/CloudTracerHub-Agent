@@ -11,11 +11,11 @@ def _default_config_path() -> str:
     packaged = os.path.join(os.path.dirname(os.path.abspath(__file__)), "default_config.json")
     if os.path.exists(packaged):
         return packaged
-    return os.path.join(_project_root(), "examples", "openclaw.config.json")
+    return os.path.join(_project_root(), "examples", "lubster.config.json")
 
 
 def load_config(config_path: str = "") -> Dict[str, Any]:
-    path = config_path.strip() or os.getenv("OPENCLAW_CONFIG", "").strip()
+    path = config_path.strip() or os.getenv("lubster_CONFIG", "").strip()
     if not path:
         path = _default_config_path()
     if not os.path.exists(path):

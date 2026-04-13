@@ -1,4 +1,4 @@
-from openclaw.mcp_main import main
+from lubster.mcp_main import main
 
 
 if __name__ == "__main__":

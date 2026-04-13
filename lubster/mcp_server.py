@@ -5,10 +5,10 @@ from typing import Any, Dict, Optional
 from .config import load_config
 from .diagnosis import diagnose
 
-SERVER_NAME = "openclaw-agent"
+SERVER_NAME = "lubster-agent"
 SERVER_VERSION = "0.1.0"
-PRIMARY_TOOL_NAME = "openclaw_agent_diagnose"
-LEGACY_TOOL_NAME = "openclaw_diagnose"
+PRIMARY_TOOL_NAME = "lubster_agent_diagnose"
+LEGACY_TOOL_NAME = "lubster_diagnose"
 
 
 class MCPServer:
@@ -30,19 +30,19 @@ class MCPServer:
                     },
                     "required": ["title"],
                 },
-                "config_path": {"type": "string", "description": "OpenClaw 配置文件路径"},
+                "config_path": {"type": "string", "description": "lubster 配置文件路径"},
             },
             "required": ["incident"],
         }
         self.tool_schemas = [
             {
                 "name": PRIMARY_TOOL_NAME,
-                "description": "openclaw-agent 对 openclaw 五层诊断引擎的 MCP 封装",
+                "description": "lubster-agent 对 lubster 五层诊断引擎的 MCP 封装",
                 "inputSchema": input_schema,
             },
             {
                 "name": LEGACY_TOOL_NAME,
-                "description": "兼容旧调用名，等价于 openclaw_agent_diagnose",
+                "description": "兼容旧调用名，等价于 lubster_agent_diagnose",
                 "inputSchema": input_schema,
             },
         ]

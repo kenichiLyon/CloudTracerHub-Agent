@@ -120,7 +120,7 @@ def diagnose(incident_data: Dict[str, Any], cfg: Dict[str, Any]) -> Dict[str, An
         recommendations.append("优先止血：按错误率最高服务逐步降级或限流")
     recommendations.append("根因确认后更新 runbook，形成可复用处置模板")
     return {
-        "meta": {"time": _now(), "engine": "openclaw", "method": "现象->资源->服务->依赖->变更"},
+        "meta": {"time": _now(), "engine": "lubster", "method": "现象->资源->服务->依赖->变更"},
         "incident": incident_data,
         "layers": [x.to_dict() for x in layers],
         "recommendations": recommendations,

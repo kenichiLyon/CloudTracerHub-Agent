@@ -1,4 +1,4 @@
-from openclaw.mcp_server import run_stdio_server
+from lubster.mcp_server import run_stdio_server
 
 
 def main() -> None:
