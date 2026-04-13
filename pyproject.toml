@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "lubster-agent"
 version = "0.1.0"
 description = "lubster CLI and MCP server for cloud-native incident diagnosis"
-readme = "lubster/README.md"
+readme = "README.md"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
