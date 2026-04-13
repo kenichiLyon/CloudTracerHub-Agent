@@ -9,34 +9,57 @@
   "runbook_endpoint": "",
   "mock": {
     "kubectl": {
-      "get pods -n default -o wide": "NAME READY STATUS RESTARTS AGE\napi-7c5 1/1 Running 0 2d\nworker-99x 0/1 CrashLoopBackOff 12 20m",
-      "describe pod worker-99x -n default": "Containers:\n  worker:\n    State: Waiting\n    Reason: CrashLoopBackOff",
-      "get svc -n default -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S)\napi ClusterIP 10.0.0.10 <none> 8080/TCP",
-      "get endpoints -n default -o wide": "NAME ENDPOINTS AGE\napi 10.1.1.7:8080 2d"
+      "get pods -n edu-auth -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\nsso-gateway-5f7d9c8c7d-k9m2q 1/1 Running 1 5h 10.21.1.18 node-a1\nsso-gateway-5f7d9c8c7d-b2m7v 1/1 Running 0 5h 10.21.1.22 node-a2\nauth-service-6f89c5bb8f-rx3tw 1/1 Running 0 3d 10.21.2.11 node-b1\nsession-redis-0 1/1 Running 0 12d 10.21.3.8 node-c1",
+      "describe pod sso-gateway-5f7d9c8c7d-k9m2q -n edu-auth": "Name: sso-gateway-5f7d9c8c7d-k9m2q\nNamespace: edu-auth\nContainers:\n  sso-gateway:\n    State: Running\n    Ready: True\nEvents:\n  Warning Unhealthy 9m kubelet Readiness probe failed: Get \"http://10.21.1.18:8080/health\": context deadline exceeded\n  Warning BackOff 7m kubelet Back-off restarting failed session-cache sidecar",
+      "get svc -n edu-auth -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\nsso-gateway ClusterIP 10.90.18.21 <none> 8080/TCP 45d app=sso-gateway\nauth-service ClusterIP 10.90.22.14 <none> 8080/TCP 45d app=auth-service\nsession-redis ClusterIP 10.90.55.9 <none> 6379/TCP 45d app=session-redis",
+      "get endpoints -n edu-auth -o wide": "NAME ENDPOINTS AGE\nsso-gateway 10.21.1.18:8080,10.21.1.22:8080 45d\nauth-service 10.21.2.11:8080 45d\nsession-redis 10.21.3.8:6379 45d"
     },
     "log_ql": {
-      "default": "2026-03-21T08:10:31Z worker timeout to redis\n2026-03-21T08:10:40Z connect ECONNREFUSED redis:6379"
+      "login failed OR timeout OR 504": "2026-04-12T08:12:11Z sso-gateway request_id=auth-7d2a route=/api/login status=504 duration_ms=2310\n2026-04-12T08:12:12Z sso-gateway session cache timeout after 1200ms key=session:stu20230017\n2026-04-12T08:12:13Z auth-service token issue delayed because session-redis response timeout",
+      "default": "2026-04-12T08:12:11Z sso-gateway login failed due to timeout\n2026-04-12T08:12:12Z session-redis timeout while reading login session"
     },
     "promql": {
+      "sum(rate(http_requests_total{namespace=\"edu-auth\"}[5m]))": {
+        "error_rate": 0.19,
+        "p95_latency_ms": 1680,
+        "qps": 72,
+        "saturation": 0.81
+      },
       "default": {
-        "error_rate": 0.21,
-        "p95_latency_ms": 1320
+        "error_rate": 0.19,
+        "p95_latency_ms": 1680
       }
     },
     "trace_analyzer": {
+      "sso-gateway": {
+        "hot_path": "portal -> sso-gateway -> auth-service -> session-redis",
+        "failed_span": "session-redis GET session timeout",
+        "dominant_dependency": "session-redis:6379",
+        "span_error_rate": 0.24
+      },
       "default": {
-        "hot_path": "api -> worker -> redis",
-        "failed_span": "redis GET timeout"
+        "hot_path": "portal -> sso-gateway -> auth-service -> session-redis",
+        "failed_span": "session-redis GET session timeout"
       }
     },
     "runbook_search": {
+      "sso-gateway edu-auth login failed timeout 504": [
+        {
+          "title": "统一身份认证超时处置",
+          "steps": [
+            "确认 session-redis 就绪状态与最近 15 分钟延迟抖动",
+            "临时切换登录态兜底策略并放宽会话读取超时阈值",
+            "观察登录成功率恢复后再逐步恢复强一致会话校验"
+          ]
+        }
+      ],
       "default": [
         {
-          "title": "Redis依赖超时排障",
+          "title": "统一身份认证超时处置",
           "steps": [
-            "检查 redis Pod 就绪与重启次数",
-            "核对 NetworkPolicy 与 Service Endpoint",
-            "按依赖降级策略切到本地缓存"
+            "确认会话缓存与认证服务状态",
+            "优先恢复登录链路可用性",
+            "恢复后补充 runbook 和监控阈值"
           ]
         }
       ]

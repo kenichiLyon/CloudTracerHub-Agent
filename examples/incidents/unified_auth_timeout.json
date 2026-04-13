@@ -1,0 +1,12 @@
+{
+  "title": "统一身份认证超时导致门户登录失败",
+  "namespace": "edu-auth",
+  "service": "sso-gateway",
+  "symptoms": [
+    "login failed",
+    "timeout",
+    "504"
+  ],
+  "time_window_minutes": 30,
+  "suspect_pod": "sso-gateway-5f7d9c8c7d-k9m2q"
+}
