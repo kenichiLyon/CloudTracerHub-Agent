@@ -9,38 +9,38 @@
   "runbook_endpoint": "",
   "mock": {
     "kubectl": {
-      "get pods -n retail-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\ncheckout-api-7d9b6f6c7f-k82pl 1/1 Running 2 3h 10.42.1.18 node-a3\ncheckout-api-7d9b6f6c7f-v9m2x 1/1 Running 0 3h 10.42.1.21 node-a1\ncart-service-6c78bb4d8d-hq92n 1/1 Running 0 1d 10.42.2.11 node-b2\nredis-master-0 1/1 Running 1 7d 10.42.3.7 node-c1\nredis-replica-0 0/1 Running 5 18m 10.42.3.12 node-c2",
-      "describe pod checkout-api-7d9b6f6c7f-k82pl -n retail-prod": "Name: checkout-api-7d9b6f6c7f-k82pl\nNamespace: retail-prod\nContainers:\n  checkout-api:\n    State: Running\n    Last State: Terminated\n      Reason: Error\n      Exit Code: 137\n    Ready: True\nEvents:\n  Warning Unhealthy 7m kubelet Readiness probe failed: Get \"http://10.42.1.18:8080/health\": context deadline exceeded\n  Warning BackOff 6m kubelet Back-off restarting failed dependency sidecar",
-      "get svc -n retail-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\ncheckout-api ClusterIP 10.96.18.21 <none> 8080/TCP 45d app=checkout-api\ncart-service ClusterIP 10.96.22.14 <none> 8080/TCP 45d app=cart-service\nredis-master ClusterIP 10.96.55.9 <none> 6379/TCP 45d app=redis,role=master",
-      "get endpoints -n retail-prod -o wide": "NAME ENDPOINTS AGE\ncheckout-api 10.42.1.18:8080,10.42.1.21:8080 45d\ncart-service 10.42.2.11:8080 45d\nredis-master 10.42.3.7:6379 45d",
-      "get pods -n fin-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\npayment-gateway-6b4f9dc87b-mx5qr 1/1 Running 0 9h 10.53.1.44 node-f1\npayment-gateway-6b4f9dc87b-r7jjc 1/1 Running 0 9h 10.53.1.46 node-f2\nsign-service-77f9b9f86f-l4s8w 1/1 Running 0 15d 10.53.2.13 node-f3\nkms-adapter-69b4cf4dc5-w2hqs 1/1 Running 0 15d 10.53.2.27 node-f4",
-      "describe pod payment-gateway-6b4f9dc87b-mx5qr -n fin-prod": "Name: payment-gateway-6b4f9dc87b-mx5qr\nNamespace: fin-prod\nContainers:\n  payment-gateway:\n    State: Running\n    Ready: True\n    Environment:\n      TLS_CERT_VERSION: v2026.03\nEvents:\n  Warning Unhealthy 12m kubelet Readiness probe failed: tls: failed to verify certificate: x509: certificate has expired or is not yet valid\n  Normal Pulled 9h kubelet Container image \"registry.local/payment-gateway:2026.04.11\" already present on machine",
-      "get svc -n fin-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\npayment-gateway ClusterIP 10.97.14.8 <none> 8443/TCP 60d app=payment-gateway\nsign-service ClusterIP 10.97.24.19 <none> 8080/TCP 60d app=sign-service\nkms-adapter ClusterIP 10.97.31.5 <none> 8080/TCP 60d app=kms-adapter",
-      "get endpoints -n fin-prod -o wide": "NAME ENDPOINTS AGE\npayment-gateway 10.53.1.44:8443,10.53.1.46:8443 60d\nsign-service 10.53.2.13:8080 60d\nkms-adapter 10.53.2.27:8080 60d",
-      "get pods -n growth-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\nrecommend-worker-5f6d4b8f68-p2swm 1/1 Running 0 2d 10.64.1.19 node-g1\nrecommend-worker-5f6d4b8f68-sx8vl 1/1 Running 0 2d 10.64.1.26 node-g2\nprofile-service-5c87db96b5-9bht4 1/1 Running 0 8d 10.64.2.17 node-g3\nmysql-read-0 1/1 Running 0 12d 10.64.3.15 node-g4\nkafka-consumer-7f6789c6b7-zm8qp 0/1 Running 7 35m 10.64.4.8 node-g5",
-      "describe pod recommend-worker-5f6d4b8f68-p2swm -n growth-prod": "Name: recommend-worker-5f6d4b8f68-p2swm\nNamespace: growth-prod\nContainers:\n  recommend-worker:\n    State: Running\n    Ready: True\nEvents:\n  Warning BackOff 15m kubelet Back-off restarting failed sidecar exporter\n  Warning Unhealthy 11m kubelet Readiness probe failed: HTTP probe failed with statuscode: 503\n  Normal Killing 18m kubelet Container exporter failed liveness probe, will be restarted",
-      "get svc -n growth-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\nrecommend-worker ClusterIP 10.98.19.15 <none> 8080/TCP 28d app=recommend-worker\nprofile-service ClusterIP 10.98.23.41 <none> 8080/TCP 28d app=profile-service\nmysql-read ClusterIP 10.98.51.6 <none> 3306/TCP 28d app=mysql-read",
-      "get endpoints -n growth-prod -o wide": "NAME ENDPOINTS AGE\nrecommend-worker 10.64.1.19:8080,10.64.1.26:8080 28d\nprofile-service 10.64.2.17:8080 28d\nmysql-read 10.64.3.15:3306 28d"
+      "get pods -n edu-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\ncourse-gateway-6d9c7c8b6d-ptx4q 1/1 Running 2 3h 10.42.1.18 node-a3\ncourse-gateway-6d9c7c8b6d-v7n8m 1/1 Running 0 3h 10.42.1.21 node-a1\nenrollment-service-7b8dd5c65c-hq92n 1/1 Running 0 1d 10.42.2.11 node-b2\nredis-master-0 1/1 Running 1 7d 10.42.3.7 node-c1\nredis-replica-0 0/1 Running 5 18m 10.42.3.12 node-c2",
+      "describe pod course-gateway-6d9c7c8b6d-ptx4q -n edu-prod": "Name: course-gateway-6d9c7c8b6d-ptx4q\nNamespace: edu-prod\nContainers:\n  course-gateway:\n    State: Running\n    Last State: Terminated\n      Reason: Error\n      Exit Code: 137\n    Ready: True\nEvents:\n  Warning Unhealthy 7m kubelet Readiness probe failed: Get \"http://10.42.1.18:8080/health\": context deadline exceeded\n  Warning BackOff 6m kubelet Back-off restarting failed redis dependency sidecar",
+      "get svc -n edu-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\ncourse-gateway ClusterIP 10.96.18.21 <none> 8080/TCP 45d app=course-gateway\nenrollment-service ClusterIP 10.96.22.14 <none> 8080/TCP 45d app=enrollment-service\nredis-master ClusterIP 10.96.55.9 <none> 6379/TCP 45d app=redis,role=master",
+      "get endpoints -n edu-prod -o wide": "NAME ENDPOINTS AGE\ncourse-gateway 10.42.1.18:8080,10.42.1.21:8080 45d\nenrollment-service 10.42.2.11:8080 45d\nredis-master 10.42.3.7:6379 45d",
+      "get pods -n gov-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\nfiling-gateway-6b4f9dc87b-mx5qr 1/1 Running 0 9h 10.53.1.44 node-f1\nfiling-gateway-6b4f9dc87b-r7jjc 1/1 Running 0 9h 10.53.1.46 node-f2\nsign-service-77f9b9f86f-l4s8w 1/1 Running 0 15d 10.53.2.13 node-f3\ncert-center-adapter-69b4cf4dc5-w2hqs 1/1 Running 0 15d 10.53.2.27 node-f4",
+      "describe pod filing-gateway-6b4f9dc87b-mx5qr -n gov-prod": "Name: filing-gateway-6b4f9dc87b-mx5qr\nNamespace: gov-prod\nContainers:\n  filing-gateway:\n    State: Running\n    Ready: True\n    Environment:\n      TLS_CERT_VERSION: v2026.03\nEvents:\n  Warning Unhealthy 12m kubelet Readiness probe failed: tls: failed to verify certificate: x509: certificate has expired or is not yet valid\n  Normal Pulled 9h kubelet Container image \"registry.local/filing-gateway:2026.04.11\" already present on machine",
+      "get svc -n gov-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\nfiling-gateway ClusterIP 10.97.14.8 <none> 8443/TCP 60d app=filing-gateway\nsign-service ClusterIP 10.97.24.19 <none> 8080/TCP 60d app=sign-service\ncert-center-adapter ClusterIP 10.97.31.5 <none> 8080/TCP 60d app=cert-center-adapter",
+      "get endpoints -n gov-prod -o wide": "NAME ENDPOINTS AGE\nfiling-gateway 10.53.1.44:8443,10.53.1.46:8443 60d\nsign-service 10.53.2.13:8080 60d\ncert-center-adapter 10.53.2.27:8080 60d",
+      "get pods -n campus-prod -o wide": "NAME READY STATUS RESTARTS AGE IP NODE\ntranscript-worker-5f6d4b8f68-p2swm 1/1 Running 0 2d 10.64.1.19 node-g1\ntranscript-worker-5f6d4b8f68-sx8vl 1/1 Running 0 2d 10.64.1.26 node-g2\nstudent-record-service-5c87db96b5-9bht4 1/1 Running 0 8d 10.64.2.17 node-g3\nmysql-read-0 1/1 Running 0 12d 10.64.3.15 node-g4\nkafka-consumer-7f6789c6b7-zm8qp 0/1 Running 7 35m 10.64.4.8 node-g5",
+      "describe pod transcript-worker-5f6d4b8f68-p2swm -n campus-prod": "Name: transcript-worker-5f6d4b8f68-p2swm\nNamespace: campus-prod\nContainers:\n  transcript-worker:\n    State: Running\n    Ready: True\nEvents:\n  Warning BackOff 15m kubelet Back-off restarting failed exporter sidecar\n  Warning Unhealthy 11m kubelet Readiness probe failed: HTTP probe failed with statuscode: 503\n  Normal Killing 18m kubelet Container exporter failed liveness probe, will be restarted",
+      "get svc -n campus-prod -o wide": "NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE SELECTOR\ntranscript-worker ClusterIP 10.98.19.15 <none> 8080/TCP 28d app=transcript-worker\nstudent-record-service ClusterIP 10.98.23.41 <none> 8080/TCP 28d app=student-record-service\nmysql-read ClusterIP 10.98.51.6 <none> 3306/TCP 28d app=mysql-read",
+      "get endpoints -n campus-prod -o wide": "NAME ENDPOINTS AGE\ntranscript-worker 10.64.1.19:8080,10.64.1.26:8080 28d\nstudent-record-service 10.64.2.17:8080 28d\nmysql-read 10.64.3.15:3306 28d"
     },
     "log_ql": {
-      "502 OR timeout OR redis timeout": "2026-04-12T10:21:14Z checkout-api request_id=7d2a route=/v1/checkout upstream=cart-service status=502 duration_ms=1821\n2026-04-12T10:21:15Z checkout-api cache layer warning redis timeout after 1200ms key=cart:948201\n2026-04-12T10:21:16Z checkout-api circuit open for redis-master:6379 fallback=stale-cart",
-      "callback retry OR signature verify failed OR 401": "2026-04-12T14:03:41Z payment-gateway callback retry attempt=4 order_id=PO202604120091\n2026-04-12T14:03:41Z payment-gateway signature verify failed partner=wechatpay cert_serial=42A9FF11\n2026-04-12T14:03:42Z payment-gateway response status=401 reason=certificate_expired",
-      "lag OR timeout OR slow query": "2026-04-12T16:45:10Z recommend-worker kafka lag=18234 topic=profile-events partition=12\n2026-04-12T16:45:12Z recommend-worker timeout calling profile-service after 2800ms user_id=9918421\n2026-04-12T16:45:13Z profile-service slow query SELECT candidate_id FROM user_profile_feature WHERE user_id=? took 2410ms"
+      "502 OR timeout OR redis timeout": "2026-04-12T10:21:14Z course-gateway request_id=7d2a route=/api/course/select upstream=enrollment-service status=502 duration_ms=1821\n2026-04-12T10:21:15Z course-gateway seat cache warning redis timeout after 1200ms key=course-seat:CS101\n2026-04-12T10:21:16Z course-gateway circuit open for redis-master:6379 fallback=wait-room",
+      "submit retry OR signature verify failed OR 401": "2026-04-12T14:03:41Z filing-gateway submit retry attempt=4 request_id=MAT202604120091\n2026-04-12T14:03:41Z filing-gateway signature verify failed issuer=city-cert-center cert_serial=42A9FF11\n2026-04-12T14:03:42Z filing-gateway response status=401 reason=certificate_expired",
+      "lag OR timeout OR slow query": "2026-04-12T16:45:10Z transcript-worker kafka lag=18234 topic=score-sync-events partition=12\n2026-04-12T16:45:12Z transcript-worker timeout calling student-record-service after 2800ms student_id=2023102458\n2026-04-12T16:45:13Z student-record-service slow query SELECT course_code,score FROM student_transcript_snapshot WHERE student_id=? took 2410ms"
     },
     "promql": {
-      "sum(rate(http_requests_total{namespace=\"retail-prod\"}[5m]))": {
+      "sum(rate(http_requests_total{namespace=\"edu-prod\"}[5m]))": {
         "error_rate": 0.18,
         "p95_latency_ms": 1840,
         "qps": 96,
         "saturation": 0.83
       },
-      "sum(rate(http_requests_total{namespace=\"fin-prod\"}[5m]))": {
+      "sum(rate(http_requests_total{namespace=\"gov-prod\"}[5m]))": {
         "error_rate": 0.11,
         "p95_latency_ms": 960,
         "qps": 42,
         "unauthorized_ratio": 0.37
       },
-      "sum(rate(http_requests_total{namespace=\"growth-prod\"}[5m]))": {
+      "sum(rate(http_requests_total{namespace=\"campus-prod\"}[5m]))": {
         "error_rate": 0.09,
         "p95_latency_ms": 2130,
         "qps": 128,
@@ -48,53 +48,53 @@
       }
     },
     "trace_analyzer": {
-      "checkout-api": {
-        "hot_path": "ingress -> checkout-api -> cart-service -> redis-master",
-        "failed_span": "redis GET cart:948201 timeout",
+      "course-gateway": {
+        "hot_path": "ingress -> course-gateway -> enrollment-service -> redis-master",
+        "failed_span": "redis GET course-seat:CS101 timeout",
         "dominant_dependency": "redis-master:6379",
         "span_error_rate": 0.22
       },
-      "payment-gateway": {
-        "hot_path": "payment-gateway -> sign-service -> kms-adapter",
+      "filing-gateway": {
+        "hot_path": "filing-gateway -> sign-service -> cert-center-adapter",
         "failed_span": "verifySignature x509 certificate expired",
         "dominant_dependency": "sign-service",
         "span_error_rate": 0.17
       },
-      "recommend-worker": {
-        "hot_path": "app-feed -> recommend-worker -> profile-service -> mysql-read",
-        "failed_span": "mysql query user_profile_feature timeout",
-        "dominant_dependency": "profile-service/mysql-read",
+      "transcript-worker": {
+        "hot_path": "campus-portal -> transcript-worker -> student-record-service -> mysql-read",
+        "failed_span": "mysql query student_transcript_snapshot timeout",
+        "dominant_dependency": "student-record-service/mysql-read",
         "span_error_rate": 0.13
       }
     },
     "runbook_search": {
-      "checkout-api retail-prod 502 timeout redis timeout": [
+      "course-gateway edu-prod 502 timeout redis timeout": [
         {
-          "title": "Redis切主导致结算超时",
+          "title": "选课缓存锁超时处置",
           "steps": [
             "核对 redis-master 与 redis-replica 的角色切换时间和探针状态",
-            "对 checkout-api 启用本地缓存兜底并临时放宽超时阈值",
-            "观察 10 分钟错误率回落后再恢复强一致读取"
+            "对 course-gateway 启用等待队列兜底并临时放宽座位锁超时阈值",
+            "观察 10 分钟错误率回落后再恢复实时锁座"
           ]
         }
       ],
-      "payment-gateway fin-prod callback retry signature verify failed 401": [
+      "filing-gateway gov-prod submit retry signature verify failed 401": [
         {
-          "title": "支付回调证书过期处置",
+          "title": "政务材料提交证书过期处置",
           "steps": [
-            "检查 payment-gateway 当前挂载证书版本与到期时间",
-            "滚动更新 sign-service 和 payment-gateway 的证书 Secret",
-            "对失败回调执行补偿重放并核对签名成功率"
+            "检查 filing-gateway 当前挂载证书版本与到期时间",
+            "滚动更新 sign-service 和 filing-gateway 的证书 Secret",
+            "对失败提交执行补偿重放并核对验签成功率"
           ]
         }
       ],
-      "recommend-worker growth-prod lag timeout slow query": [
+      "transcript-worker campus-prod lag timeout slow query": [
         {
-          "title": "推荐链路消费积压排障",
+          "title": "成绩查询链路积压排障",
           "steps": [
-            "先确认 kafka lag 是否持续增长并扩容 recommend-worker 消费副本",
-            "定位 profile-service 慢查询并检查 user_profile_feature 索引命中情况",
-            "必要时对首页推荐降级为缓存结果，降低实时画像依赖"
+            "先确认 kafka lag 是否持续增长并扩容 transcript-worker 消费副本",
+            "定位 student-record-service 慢查询并检查 student_transcript_snapshot 索引命中情况",
+            "必要时对成绩查询页降级为最近一次缓存快照，降低实时查询压力"
           ]
         }
       ]

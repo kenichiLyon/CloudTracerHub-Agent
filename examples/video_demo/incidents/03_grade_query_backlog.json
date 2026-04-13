@@ -1,0 +1,12 @@
+{
+  "title": "成绩查询链路积压导致门户卡顿",
+  "namespace": "campus-prod",
+  "service": "transcript-worker",
+  "symptoms": [
+    "lag",
+    "timeout",
+    "slow query"
+  ],
+  "time_window_minutes": 30,
+  "suspect_pod": "transcript-worker-5f6d4b8f68-p2swm"
+}

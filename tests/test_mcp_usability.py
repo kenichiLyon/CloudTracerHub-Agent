@@ -37,7 +37,7 @@ def test_mcp_call_without_config_path_uses_default_config(monkeypatch, tmp_path)
     assert response is not None
     assert response["result"]["isError"] is False
     assert response["result"]["structuredContent"]["meta"]["engine"] == "lubster"
-    assert response["result"]["structuredContent"]["meta"]["server"] == "lubster-agent"
+    assert response["result"]["structuredContent"]["meta"]["server"] == "CloudTracerHub-agent"
 
 
 def test_project_example_config_exists():

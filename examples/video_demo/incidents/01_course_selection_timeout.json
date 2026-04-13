@@ -1,0 +1,12 @@
+{
+  "title": "选课高峰期间选课接口 502 激增",
+  "namespace": "edu-prod",
+  "service": "course-gateway",
+  "symptoms": [
+    "502",
+    "timeout",
+    "redis timeout"
+  ],
+  "time_window_minutes": 45,
+  "suspect_pod": "course-gateway-6d9c7c8b6d-ptx4q"
+}

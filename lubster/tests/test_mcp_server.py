@@ -21,7 +21,7 @@ def test_mcp_initialize_and_tools_call():
         }
     )
     assert init_resp is not None
-    assert init_resp["result"]["serverInfo"]["name"] == "lubster-agent"
+    assert init_resp["result"]["serverInfo"]["name"] == "CloudTracerHub-agent"
 
     list_resp = server.handle_request({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
     assert list_resp is not None
@@ -54,7 +54,7 @@ def test_mcp_initialize_and_tools_call():
     result = call_resp["result"]
     assert result["isError"] is False
     assert result["structuredContent"]["meta"]["engine"] == "lubster"
-    assert result["structuredContent"]["meta"]["server"] == "lubster-agent"
+    assert result["structuredContent"]["meta"]["server"] == "CloudTracerHub-agent"
     assert result["structuredContent"]["meta"]["tool"] == "lubster_agent_diagnose"
 
 

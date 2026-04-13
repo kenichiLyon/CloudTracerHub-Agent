@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "lubster-agent"
+name = "CloudTracerHub-agent"
 version = "0.1.0"
 description = "lubster CLI and MCP server for cloud-native incident diagnosis"
 readme = "README.md"
@@ -13,10 +13,8 @@ requires-python = ">=3.10"
 dev = ["pytest>=9,<10"]
 
 [project.scripts]
-lubster = "lubster.cli:run"
-lubster-agent = "lubster.cli:run"
-lubster-mcp = "lubster.mcp_main:main"
-lubster-agent-mcp = "lubster.mcp_main:main"
+cloudtracerhub-agent = "lubster.cli:run"
+cloudtracerhub-agent-mcp = "lubster.mcp_main:main"
 
 [tool.setuptools]
 include-package-data = true

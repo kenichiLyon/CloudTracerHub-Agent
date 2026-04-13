@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional
 from .config import load_config
 from .diagnosis import diagnose
 
-SERVER_NAME = "lubster-agent"
+SERVER_NAME = "CloudTracerHub-agent"
 SERVER_VERSION = "0.1.0"
 PRIMARY_TOOL_NAME = "lubster_agent_diagnose"
 LEGACY_TOOL_NAME = "lubster_diagnose"
@@ -37,7 +37,7 @@ class MCPServer:
         self.tool_schemas = [
             {
                 "name": PRIMARY_TOOL_NAME,
-                "description": "lubster-agent 对 lubster 五层诊断引擎的 MCP 封装",
+                "description": "CloudTracerHub-agent 中的 lubster-agent 对 lubster 五层诊断引擎的 MCP 封装",
                 "inputSchema": input_schema,
             },
             {

@@ -4,7 +4,8 @@
 
 本项目已完成从 CloudConfigGuard 到 lubster 的迁移，当前只保留 lubster 诊断能力。
 项目提供两种使用方式：CLI 诊断器与 MCP Server，不提供 WebUI。
-其中 lubster-agent 是对 lubster 核心诊断引擎的工程化封装：CLI 直接调用 lubster，MCP Server 则把同一套诊断能力暴露给外部客户端。
+其中 `lubster-agent` 是项目中面向 `lubster` 生态的诊断能力封装名：CLI 直接调用 `lubster`，MCP Server 则把同一套诊断能力暴露给外部客户端。
+对外命令入口统一使用 `cloudtracerhub-agent` 与 `cloudtracerhub-agent-mcp`。
 
 诊断方法固定为五层链路：
 
@@ -27,13 +28,13 @@
 ```bash
 uv python pin 3.13
 uv sync --extra dev
-uv run lubster --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
 ```
 
-也可以使用项目同名入口：
+也可以直接调用底层模块：
 
 ```bash
-uv run lubster-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
+uv run python -m lubster --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json --format pretty
 ```
 
 说明：
@@ -46,16 +47,10 @@ uv run lubster-agent --config examples/lubster.config.json --incident-file examp
 启动 MCP Server：
 
 ```bash
-uv run lubster-mcp
+uv run cloudtracerhub-agent-mcp
 ```
 
-项目同名入口也可直接使用：
-
-```bash
-uv run lubster-agent-mcp
-```
-
-也可以使用以下等价方式启动：
+也可以直接运行模块：
 
 ```bash
 uv run python -m lubster.mcp_main
@@ -83,13 +78,13 @@ uv run python mcp_main.py
 ### 1) 使用 incident 文件
 
 ```bash
-uv run lubster --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-file examples/incidents/pod_crashloop.json
 ```
 
 ### 2) 直接传 incident JSON
 
 ```bash
-uv run lubster --config examples/lubster.config.json --incident-json "{\"title\":\"api 5xx\",\"namespace\":\"default\",\"service\":\"api\",\"symptoms\":[\"5xx\",\"timeout\"],\"time_window_minutes\":30}" --format json
+uv run cloudtracerhub-agent --config examples/lubster.config.json --incident-json "{\"title\":\"api 5xx\",\"namespace\":\"default\",\"service\":\"api\",\"symptoms\":[\"5xx\",\"timeout\"],\"time_window_minutes\":30}" --format json
 ```
 
 参数说明：
@@ -106,11 +101,11 @@ Claude Desktop 或其他支持 stdio MCP 的客户端可配置为：
 ```json
 {
   "mcpServers": {
-    "lubster": {
+    "cloudtracerhub-agent": {
       "command": "uv",
-      "args": ["run", "lubster-agent-mcp"],
+      "args": ["run", "cloudtracerhub-agent-mcp"],
       "env": {
-        "lubster_CONFIG": "G:/your-path/lubster-Agent/examples/lubster.config.json"
+        "lubster_CONFIG": "G:/your-path/CloudTracerHub-agent/examples/lubster.config.json"
       }
     }
   }
@@ -122,12 +117,12 @@ Claude Desktop 或其他支持 stdio MCP 的客户端可配置为：
 ```json
 {
   "mcpServers": {
-    "lubster": {
+    "cloudtracerhub-agent": {
       "command": "uv",
       "args": ["run", "python", "-m", "lubster.mcp_main"],
-      "cwd": "G:/your-path/lubster-Agent",
+      "cwd": "G:/your-path/CloudTracerHub-agent",
       "env": {
-        "lubster_CONFIG": "G:/your-path/lubster-Agent/examples/lubster.config.json"
+        "lubster_CONFIG": "G:/your-path/CloudTracerHub-agent/examples/lubster.config.json"
       }
     }
   }
@@ -182,18 +177,18 @@ Claude Desktop 或其他支持 stdio MCP 的客户端可配置为：
 4. 启动本项目提供的 MCP 服务：
 
 ```bash
-uv run lubster-agent-mcp
+uv run cloudtracerhub-agent-mcp
 ```
 
 5. 在 Lobster 中明确指定：
    - 使用本项目作为故障诊断工具入口
-   - 优先通过 `lubster-agent` / `lubster` 提供的工具链访问服务
+   - 优先通过 `cloudtracerhub-agent` 或 `python -m lubster` 提供的工具链访问服务
    - 不要绕过本项目，私自直接连接并操作 `docker`、`k8s` 等环境
 
 如果仅需要演示使用，推荐直接使用演示数据：
 
 ```bash
-uv run lubster --config examples/video_demo/lubster.video.config.json --incident-file examples/video_demo/incidents/01_checkout_redis_timeout.json --format pretty
+uv run cloudtracerhub-agent --config examples/video_demo/lubster.video.config.json --incident-file examples/video_demo/incidents/01_course_selection_timeout.json --format pretty
 ```
 
 给 Lobster 的初始化指令可以参考：
